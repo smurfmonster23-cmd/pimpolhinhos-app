@@ -1,675 +1,873 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#FFB6C1">
-    <title>Pimpolhinhos - Gestão de Consultório</title>
-    <link rel="manifest" href="/manifest.json">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pimpolhinhos - Gestão de Consultório</title>
+  <meta name="theme-color" content="#FFE9EC" />
+  <link rel="manifest" href="/manifest.json" />
+  <style>
+    :root {
+      --bg-page: #ffe9ec;
+      --card-bg: #fff9f5;
+      --card-bg-blue: #e6f3ff;
+      --card-bg-lilac: #f5ecff;
+      --card-bg-green: #e9f7f1;
+      --primary: #ff7f9f;
+      --primary-soft: #ffb6c1;
+      --accent-yellow: #ffe39b;
+      --accent-green: #8fd39a;
+      --accent-blue: #7db7ff;
+      --accent-lilac: #c9b4ff;
+      --text-main: #5b4b57;
+      --text-soft: #8b7a8a;
+      --border-soft: #f1d8dd;
+      --shadow-soft: 0 8px 18px rgba(181, 135, 135, 0.18);
+      --radius-card: 22px;
+    }
 
-        :root {
-            --rosa: #FFB6C1;
-            --azul: #B0E0E6;
-            --verde: #98D8C8;
-            --lilas: #E0BBE4;
-            --amarelo: #FFF9A6;
-            --pessego: #FFDAB9;
-            --bg: #FFF5F7;
-            --texto: #4A4A4A;
-            --branco: #FFFFFF;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--texto);
-            margin: 0;
-            padding: 0;
-        }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 16px;
+    }
 
-        .header {
-            background: linear-gradient(135deg, var(--rosa), var(--lilas));
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    /* Layout mobile centralizado */
+    .phone-frame {
+      width: 390px;
+      max-width: 100%;
+      background: #fdf2f3;
+      border-radius: 36px;
+      padding: 14px;
+      box-shadow: 0 18px 40px rgba(157, 104, 104, 0.3);
+      border: 1px solid #f6d5dd;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    /* “telas” empilhadas como no mockup */
+    .screens {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
 
-        .logo-icon {
-            font-size: 32px;
-        }
+    .screen-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1 1 160px;
+      min-width: 160px;
+    }
 
-        .logo-text {
-            color: white;
-            font-size: 22px;
-            font-weight: 700;
-        }
+    .screen {
+      background: #fffdf9;
+      border-radius: var(--radius-card);
+      padding: 16px 14px;
+      box-shadow: var(--shadow-soft);
+      width: 100%;
+    }
 
-        .user-info {
-            text-align: right;
-            color: white;
-        }
+    /* Cabeçalho PsiKids-like adaptado para Pimpolhinhos */
+    .header-brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
 
-        .user-name {
-            font-weight: 600;
-            font-size: 16px;
-        }
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-        .user-date {
-            font-size: 12px;
-            opacity: 0.9;
-        }
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #ffbfcf);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
 
-        .nav-tabs {
-            display: flex;
-            background: white;
-            padding: 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            overflow-x: auto;
-            position: sticky;
-            top: 70px;
-            z-index: 99;
-        }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
-        .nav-tab {
-            flex: 1;
-            padding: 15px;
-            text-align: center;
-            border: none;
-            background: white;
-            color: var(--texto);
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: #ff7f9f;
+    }
 
-        .nav-tab.active {
-            color: var(--rosa);
-            border-bottom-color: var(--rosa);
-        }
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
 
-        .nav-tab:hover {
-            background: var(--bg);
-        }
+    .profile-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #ffe39b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
 
-        .content {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-bottom: 100px;
-        }
+    .greeting {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
 
-        .tab-content {
-            display: none;
-        }
+    .greeting span {
+      font-weight: 700;
+    }
 
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s;
-        }
+    .sub-greeting {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    /* MINI CALENDÁRIO */
+    .mini-calendar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
 
-        .schedule-card {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
+    .mini-day {
+      flex: 1;
+      text-align: center;
+      background: #fff;
+      border-radius: 12px;
+      padding: 6px 2px;
+      font-size: 10px;
+      color: var(--text-soft);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
 
-        .schedule-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+    .mini-day strong {
+      display: block;
+      font-size: 13px;
+      color: var(--text-main);
+    }
 
-        .schedule-time {
-            background: var(--rosa);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 16px;
-            min-width: 70px;
-            text-align: center;
-        }
+    .mini-day span.badge {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      background: var(--accent-blue);
+      color: white;
+      font-size: 9px;
+    }
 
-        .schedule-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--azul), var(--verde));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
+    .mini-day.active {
+      background: linear-gradient(145deg,#ffb6c1,#ffdfd6);
+      color: white;
+    }
 
-        .schedule-info {
-            flex: 1;
-        }
+    .mini-day.active strong {
+      color: white;
+    }
 
-        .schedule-name {
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 3px;
-        }
+    /* LISTA DE HORÁRIOS */
+    .schedule-item {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 18px;
+      padding: 10px 10px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      gap: 8px;
+    }
 
-        .schedule-type {
-            font-size: 13px;
-            color: #999;
-        }
+    .schedule-time-block {
+      background: #ffe7ec;
+      border-radius: 14px;
+      padding: 6px 8px;
+      text-align: center;
+      min-width: 62px;
+      font-size: 11px;
+      color: var(--text-main);
+    }
 
-        .schedule-status {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
+    .schedule-time-block strong {
+      font-size: 14px;
+      display: block;
+    }
 
-        .status-confirmado {
-            background: #D4EDDA;
-            color: #155724;
-        }
+    .schedule-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #ffd3a7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
 
-        .status-pendente {
-            background: #FFF3CD;
-            color: #856404;
-        }
+    .schedule-info {
+      flex: 1;
+    }
 
-        .patient-list {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
+    .schedule-name {
+      font-size: 13px;
+      font-weight: 700;
+    }
 
-        .patient-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid var(--bg);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
+    .schedule-type {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
 
-        .patient-item:hover {
-            background: var(--bg);
-        }
+    .schedule-status {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
 
-        .patient-item:last-child {
-            border-bottom: none;
-        }
+    .status-confirmado {
+      background: #e3f6e9;
+      color: #2b7b3a;
+    }
 
-        .patient-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--pessego), var(--amarelo));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            margin-right: 15px;
-        }
+    .status-pendente {
+      background: #fff3cd;
+      color: #8a6d3b;
+    }
 
-        .patient-info {
-            flex: 1;
-        }
+    /* MENU INFERIOR */
+    .bottom-menu {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      padding: 6px 10px 0;
+      border-top: 1px solid #f5dadd;
+    }
 
-        .patient-name {
-            font-weight: 700;
-            font-size: 15px;
-        }
+    .bottom-item {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
 
-        .patient-session {
-            font-size: 13px;
-            color: #999;
-        }
+    .bottom-icon {
+      font-size: 16px;
+      display: block;
+      margin-bottom: 2px;
+    }
 
-        .patient-arrow {
-            color: var(--rosa);
-            font-size: 20px;
-        }
+    .bottom-item.active {
+      color: #ff7f9f;
+      font-weight: 600;
+    }
 
-        .payment-summary {
-            background: linear-gradient(135deg, var(--verde), var(--azul));
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    /* COLUNA PACIENTES */
+    .column-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
 
-        .payment-label {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 5px;
-        }
+    .badge-add {
+      font-size: 10px;
+      background: #7db7ff;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 999px;
+      margin-left: 6px;
+    }
 
-        .payment-value {
-            font-size: 32px;
-            font-weight: 700;
-        }
+    .patient-list {
+      border-radius: 18px;
+      padding: 10px 8px;
+      background: #f4edf9;
+    }
 
-        .payment-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+    .patient-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 6px;
+      background: white;
+      border-radius: 14px;
+      margin-bottom: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
 
-        .payment-tab {
-            flex: 1;
-            padding: 12px;
-            background: white;
-            border: 2px solid var(--bg);
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
+    .patient-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 8px;
+      background: #ffd3a7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+    }
 
-        .payment-tab.active {
-            background: var(--rosa);
-            color: white;
-            border-color: var(--rosa);
-        }
+    .patient-info {
+      flex: 1;
+    }
 
-        .payment-item {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
+    .patient-name {
+      font-size: 13px;
+      font-weight: 600;
+    }
 
-        .payment-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--lilas), var(--rosa));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-        }
+    .patient-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
 
-        .payment-details {
-            flex: 1;
-        }
+    .patient-arrow {
+      font-size: 16px;
+      color: var(--text-soft);
+    }
 
-        .payment-name {
-            font-weight: 700;
-            font-size: 15px;
-        }
+    /* PAGAMENTOS */
+    .payments-card {
+      background: #fffcee;
+      border-radius: var(--radius-card);
+      padding: 14px 12px;
+      box-shadow: var(--shadow-soft);
+    }
 
-        .payment-session-type {
-            font-size: 13px;
-            color: #999;
-        }
+    .payments-header {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
 
-        .payment-amount {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--rosa);
-        }
+    .payments-total {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
 
-        .payment-status-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            background: var(--pessego);
-            color: #8B4513;
-        }
+    .payments-total span {
+      font-weight: 700;
+    }
 
-        .btn-nf {
-            background: linear-gradient(135deg, var(--azul), var(--verde));
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            width: 100%;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(152, 216, 200, 0.3);
-            transition: transform 0.2s;
-        }
+    .pill-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
 
-        .btn-nf:hover {
-            transform: translateY(-2px);
-        }
+    .pill {
+      flex: 1;
+      padding: 5px 0;
+      text-align: center;
+      font-size: 11px;
+      border-radius: 999px;
+      border: 1px solid #ffd4cf;
+      background: white;
+      color: var(--text-soft);
+    }
 
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            z-index: 101;
-        }
+    .pill.active {
+      background: #ff7f9f;
+      border-color: #ff7f9f;
+      color: white;
+      font-weight: 600;
+    }
 
-        .bottom-nav-item {
-            text-align: center;
-            cursor: pointer;
-            padding: 5px;
-            transition: transform 0.2s;
-            flex: 1;
-        }
+    .payment-row {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 14px;
+      padding: 8px 8px;
+      margin-bottom: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
 
-        .bottom-nav-item:active {
-            transform: scale(0.95);
-        }
+    .payment-info {
+      flex: 1;
+      font-size: 12px;
+    }
 
-        .bottom-nav-icon {
-            font-size: 24px;
-            margin-bottom: 3px;
-        }
+    .payment-name {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
 
-        .bottom-nav-label {
-            font-size: 11px;
-            color: #999;
-        }
+    .payment-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
 
-        .bottom-nav-item.active .bottom-nav-icon {
-            color: var(--rosa);
-        }
+    .payment-right {
+      text-align: right;
+      font-size: 11px;
+    }
 
-        .bottom-nav-item.active .bottom-nav-label {
-            color: var(--rosa);
-            font-weight: 600;
-        }
+    .payment-value {
+      font-weight: 700;
+      color: #ff7f9f;
+      margin-bottom: 2px;
+    }
 
-        @media (max-width: 600px) {
-            .header {
-                padding: 15px;
-            }
+    .payment-badge {
+      display: inline-block;
+      padding: 3px 6px;
+      border-radius: 999px;
+      background: #ffe8c2;
+      color: #8a5a1a;
+    }
 
-            .logo-text {
-                font-size: 18px;
-            }
+    .btn-full {
+      margin-top: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 16px;
+      padding: 10px 0;
+      background: #7db7ff;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      box-shadow: 0 4px 10px rgba(125,183,255,0.5);
+      cursor: pointer;
+    }
 
-            .content {
-                padding: 15px;
-                padding-bottom: 100px;
-            }
-        }
-    </style>
+    /* DETALHES DA SESSÃO */
+    .session-card {
+      background: #e6f3ff;
+      border-radius: var(--radius-card);
+      padding: 16px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .session-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+
+    .session-title {
+      font-weight: 700;
+    }
+
+    .session-field {
+      background: white;
+      border-radius: 14px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .session-icon {
+      font-size: 16px;
+    }
+
+    .session-label {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .session-value {
+      font-weight: 600;
+    }
+
+    .session-value-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #e3f6e9;
+      color: #2b7b3a;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .btn-session {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px 0;
+      border-radius: 16px;
+      border: none;
+      background: #ff7f9f;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255,127,159,0.55);
+    }
+
+    /* CONFIRMAÇÃO COM URSINHO */
+    .confirm-card {
+      background: #fffdf5;
+      border-radius: var(--radius-card);
+      padding: 16px 14px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .confirm-header {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .confirm-illustration {
+      text-align: center;
+      font-size: 52px;
+      margin-bottom: 10px;
+    }
+
+    .confirm-title {
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .confirm-patient {
+      text-align: center;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .confirm-text {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 12px;
+    }
+
+    .btn-ok {
+      display: block;
+      margin: 0 auto;
+      padding: 8px 26px;
+      border-radius: 16px;
+      border: none;
+      background: #7db7ff;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 600px) {
+      .phone-frame {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+      }
+      .screens {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <div class="logo-icon">🌱</div>
-            <div class="logo-text">Pimpolhinhos</div>
+  <div class="phone-frame">
+    <div class="screens">
+      <!-- COLUNA 1: AGENDA -->
+      <div class="screen-column">
+        <div class="screen">
+          <div class="header-brand">
+            <div class="brand-left">
+              <div class="brand-logo">🌱</div>
+              <div class="brand-text">
+                <div class="brand-title">Pimpolhinhos</div>
+                <div class="brand-subtitle">Psicologia Infantil</div>
+              </div>
+            </div>
+            <div class="profile-badge">👩‍⚕️</div>
+          </div>
+
+          <div class="greeting">Olá, <span>Dra. Ana</span></div>
+          <div class="sub-greeting">Seu dia de hoje:</div>
+
+          <div class="mini-calendar">
+            <div class="mini-day">
+              SEG
+              <strong>12</strong>
+            </div>
+            <div class="mini-day">
+              TER
+              <strong>13</strong>
+            </div>
+            <div class="mini-day active">
+              QUA
+              <strong>14</strong>
+              <span class="badge">HOJE</span>
+            </div>
+            <div class="mini-day">
+              QUI
+              <strong>15</strong>
+            </div>
+            <div class="mini-day">
+              SEX
+              <strong>16</strong>
+            </div>
+          </div>
+
+          <div class="schedule-item">
+            <div class="schedule-time-block">
+              <span>Horário</span>
+              <strong>10:00</strong>
+            </div>
+            <div class="schedule-avatar">👧</div>
+            <div class="schedule-info">
+              <div class="schedule-name">Sofia Andrade</div>
+              <div class="schedule-type">Sessão Infantil</div>
+            </div>
+            <div class="schedule-status status-confirmado">Confirmado</div>
+          </div>
+
+          <div class="schedule-item">
+            <div class="schedule-time-block">
+              <span>Horário</span>
+              <strong>11:30</strong>
+            </div>
+            <div class="schedule-avatar">👦</div>
+            <div class="schedule-info">
+              <div class="schedule-name">Lucas Melo</div>
+              <div class="schedule-type">Terapia Adolescente</div>
+            </div>
+            <div class="schedule-status status-confirmado">Confirmado</div>
+          </div>
+
+          <div class="schedule-item">
+            <div class="schedule-time-block">
+              <span>Horário</span>
+              <strong>14:00</strong>
+            </div>
+            <div class="schedule-avatar">👧</div>
+            <div class="schedule-info">
+              <div class="schedule-name">Laura Lima</div>
+              <div class="schedule-type">Sessão Adulto</div>
+            </div>
+            <div class="schedule-status status-pendente">Pendente</div>
+          </div>
+
+          <div class="bottom-menu">
+            <div class="bottom-item active">
+              <span class="bottom-icon">📅</span>
+              Agenda
+            </div>
+            <div class="bottom-item">
+              <span class="bottom-icon">👥</span>
+              Pacientes
+            </div>
+            <div class="bottom-item">
+              <span class="bottom-icon">💰</span>
+              Pagamentos
+            </div>
+            <div class="bottom-item">
+              <span class="bottom-icon">⋯</span>
+              Mais
+            </div>
+          </div>
         </div>
-        <div class="user-info">
-            <div class="user-name">Olá, Dra. Ana</div>
-            <div class="user-date">Seu dia de hoje:</div>
+      </div>
+
+      <!-- COLUNA 2: PACIENTES + PAGAMENTOS RESUMO -->
+      <div class="screen-column">
+        <div class="screen">
+          <div class="column-title">
+            Pacientes
+            <span class="badge-add">Adicionar +</span>
+          </div>
+          <div class="patient-list">
+            <div class="patient-row">
+              <div class="patient-avatar">👧</div>
+              <div class="patient-info">
+                <div class="patient-name">Sofia Andrade</div>
+                <div class="patient-sub">Sessão Infantil</div>
+              </div>
+              <div class="patient-arrow">›</div>
+            </div>
+            <div class="patient-row">
+              <div class="patient-avatar">👦</div>
+              <div class="patient-info">
+                <div class="patient-name">Lucas Melo</div>
+                <div class="patient-sub">Terapia Adolescente</div>
+              </div>
+              <div class="patient-arrow">›</div>
+            </div>
+            <div class="patient-row">
+              <div class="patient-avatar">👧</div>
+              <div class="patient-info">
+                <div class="patient-name">Laura Lima</div>
+                <div class="patient-sub">Sessão Adulto</div>
+              </div>
+              <div class="patient-arrow">›</div>
+            </div>
+            <div class="patient-row">
+              <div class="patient-avatar">👦</div>
+              <div class="patient-info">
+                <div class="patient-name">Pedro Silva</div>
+                <div class="patient-sub">Terapia Infantil</div>
+              </div>
+              <div class="patient-arrow">›</div>
+            </div>
+          </div>
+
+          <div class="bottom-menu">
+            <div class="bottom-item">
+              <span class="bottom-icon">📅</span>
+              Agenda
+            </div>
+            <div class="bottom-item active">
+              <span class="bottom-icon">👥</span>
+              Pacientes
+            </div>
+            <div class="bottom-item">
+              <span class="bottom-icon">💰</span>
+              Pagamentos
+            </div>
+            <div class="bottom-item">
+              <span class="bottom-icon">⋯</span>
+              Mais
+            </div>
+          </div>
         </div>
+
+        <div class="payments-card">
+          <div class="payments-header">Pagamentos</div>
+          <div class="payments-total">
+            Saldo a Receber: <span>R$ 1.250,00</span>
+          </div>
+          <div class="pill-tabs">
+            <div class="pill active">Pendentes</div>
+            <div class="pill">Recebidos</div>
+          </div>
+
+          <div class="payment-row">
+            <div class="patient-avatar">👧</div>
+            <div class="payment-info">
+              <div class="payment-name">Laura Lima</div>
+              <div class="payment-sub">Sessão Adulto</div>
+            </div>
+            <div class="payment-right">
+              <div class="payment-value">R$ 200,00</div>
+              <span class="payment-badge">Em Aberto</span>
+            </div>
+          </div>
+
+          <div class="payment-row">
+            <div class="patient-avatar">👦</div>
+            <div class="payment-info">
+              <div class="payment-name">Pedro Silva</div>
+              <div class="payment-sub">Terapia Infantil</div>
+            </div>
+            <div class="payment-right">
+              <div class="payment-value">R$ 150,00</div>
+              <span class="payment-badge">Em Aberto</span>
+            </div>
+          </div>
+
+          <button class="btn-full">Enviar Nota Fiscal</button>
+        </div>
+      </div>
+
+      <!-- COLUNA 3: DETALHES + CONFIRMAÇÃO -->
+      <div class="screen-column">
+        <div class="session-card">
+          <div class="session-header">
+            <div class="session-title">Detalhes da Sessão</div>
+            <div style="font-size: 12px; color: var(--text-soft);">💬</div>
+          </div>
+
+          <div style="text-align: center; margin-bottom: 8px;">
+            <div style="font-weight:700; font-size:16px;">Lucas Melo</div>
+            <div style="font-size:12px; color:var(--text-soft);">Terapia Adolescente</div>
+          </div>
+
+          <div class="session-field">
+            <div class="session-icon">🕒</div>
+            <div>
+              <div class="session-label">Horário</div>
+              <div class="session-value">11:30</div>
+            </div>
+          </div>
+
+          <div class="session-field">
+            <div class="session-icon">📅</div>
+            <div>
+              <div class="session-label">Data</div>
+              <div class="session-value">14/07/2021</div>
+            </div>
+          </div>
+
+          <div class="session-field">
+            <div class="session-icon">📊</div>
+            <div>
+              <div class="session-label">Status</div>
+              <div class="session-value-badge">Confirmado</div>
+            </div>
+          </div>
+
+          <div class="session-field">
+            <div class="session-icon">💳</div>
+            <div>
+              <div class="session-label">Valor</div>
+              <div class="session-value">R$ 180,00</div>
+            </div>
+          </div>
+
+          <button class="btn-session">Enviar Nota Fiscal</button>
+        </div>
+
+        <div class="confirm-card">
+          <div class="confirm-header">Confirmação</div>
+          <div class="confirm-illustration">🧸</div>
+          <div class="confirm-title">Consulta Confirmada!</div>
+          <div class="confirm-patient">
+            Sofia Andrade<br />
+            <span style="font-size:12px; color:var(--text-soft);">
+              Sessão Infantil
+            </span>
+          </div>
+          <div class="confirm-text">
+            Agendada para: <strong>Hoje às 10:00</strong><br />
+            Notificação enviada com sucesso!
+          </div>
+          <button class="btn-ok">OK</button>
+        </div>
+      </div>
     </div>
-
-    <div class="nav-tabs">
-        <button class="nav-tab active" onclick="showTab('agenda')">📅 Agenda</button>
-        <button class="nav-tab" onclick="showTab('pacientes')">👥 Pacientes</button>
-        <button class="nav-tab" onclick="showTab('pagamentos')">💰 Pagamentos</button>
-        <button class="nav-tab" onclick="showTab('mais')">⚙️ Mais</button>
-    </div>
-
-    <div class="content">
-        <div id="agenda" class="tab-content active">
-            <h2 style="margin-bottom: 20px; font-size: 20px;">📅 Agenda de Hoje</h2>
-
-            <div class="schedule-card" onclick="alert('Sofia Andrade - Sessão Infantil - 10:00')">
-                <div class="schedule-time">10:00</div>
-                <div class="schedule-avatar">👧</div>
-                <div class="schedule-info">
-                    <div class="schedule-name">Sofia Andrade</div>
-                    <div class="schedule-type">Sessão Infantil</div>
-                </div>
-                <span class="schedule-status status-confirmado">Confirmado</span>
-            </div>
-
-            <div class="schedule-card" onclick="alert('Lucas Melo - Terapia Adolescente - 11:30')">
-                <div class="schedule-time">11:30</div>
-                <div class="schedule-avatar">👦</div>
-                <div class="schedule-info">
-                    <div class="schedule-name">Lucas Melo</div>
-                    <div class="schedule-type">Terapia Adolescente</div>
-                </div>
-                <span class="schedule-status status-confirmado">Confirmado</span>
-            </div>
-
-            <div class="schedule-card" onclick="alert('Laura Lima - Sessão Adulto - 14:00')">
-                <div class="schedule-time">14:00</div>
-                <div class="schedule-avatar">👧</div>
-                <div class="schedule-info">
-                    <div class="schedule-name">Laura Lima</div>
-                    <div class="schedule-type">Sessão Adulto</div>
-                </div>
-                <span class="schedule-status status-pendente">Pendente</span>
-            </div>
-        </div>
-
-        <div id="pacientes" class="tab-content">
-            <h2 style="margin-bottom: 20px; font-size: 20px;">👥 Meus Pacientes</h2>
-
-            <div class="patient-list">
-                <div class="patient-item" onclick="alert('Sofia Andrade - Sessão Infantil - Próxima: Hoje às 10:00')">
-                    <div class="patient-avatar">👧</div>
-                    <div class="patient-info">
-                        <div class="patient-name">Sofia Andrade</div>
-                        <div class="patient-session">Sessão Infantil</div>
-                    </div>
-                    <div class="patient-arrow">›</div>
-                </div>
-
-                <div class="patient-item" onclick="alert('Lucas Melo - Terapia Adolescente - Próxima: Hoje às 11:30')">
-                    <div class="patient-avatar">👦</div>
-                    <div class="patient-info">
-                        <div class="patient-name">Lucas Melo</div>
-                        <div class="patient-session">Terapia Adolescente</div>
-                    </div>
-                    <div class="patient-arrow">›</div>
-                </div>
-
-                <div class="patient-item" onclick="alert('Laura Lima - Sessão Adulto - Próxima: Hoje às 14:00')">
-                    <div class="patient-avatar">👧</div>
-                    <div class="patient-info">
-                        <div class="patient-name">Laura Lima</div>
-                        <div class="patient-session">Sessão Adulto</div>
-                    </div>
-                    <div class="patient-arrow">›</div>
-                </div>
-
-                <div class="patient-item" onclick="alert('Pedro Silva - Terapia Infantil - Próxima: Amanhã às 09:00')">
-                    <div class="patient-avatar">👦</div>
-                    <div class="patient-info">
-                        <div class="patient-name">Pedro Silva</div>
-                        <div class="patient-session">Terapia Infantil</div>
-                    </div>
-                    <div class="patient-arrow">›</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="pagamentos" class="tab-content">
-            <h2 style="margin-bottom: 20px; font-size: 20px;">💰 Pagamentos</h2>
-
-            <div class="payment-summary">
-                <div class="payment-label">Saldo a Receber</div>
-                <div class="payment-value">R$ 1.250,00</div>
-            </div>
-
-            <div class="payment-tabs">
-                <div class="payment-tab active">Pendentes</div>
-                <div class="payment-tab">Recebidos</div>
-            </div>
-
-            <div class="payment-item">
-                <div class="payment-avatar">👧</div>
-                <div class="payment-details">
-                    <div class="payment-name">Laura Lima</div>
-                    <div class="payment-session-type">Sessão Adulto</div>
-                </div>
-                <div>
-                    <div class="payment-amount">R$ 200,00</div>
-                    <div class="payment-status-badge">Pendente</div>
-                </div>
-            </div>
-
-            <div class="payment-item">
-                <div class="payment-avatar">👦</div>
-                <div class="payment-details">
-                    <div class="payment-name">Pedro Silva</div>
-                    <div class="payment-session-type">Terapia Infantil</div>
-                </div>
-                <div>
-                    <div class="payment-amount">R$ 150,00</div>
-                    <div class="payment-status-badge">Pendente</div>
-                </div>
-            </div>
-
-            <button class="btn-nf" onclick="alert('✅ Notas fiscais enviadas com sucesso!')">
-                📧 Enviar Nota Fiscal
-            </button>
-        </div>
-
-        <div id="mais" class="tab-content">
-            <h2 style="margin-bottom: 20px; font-size: 20px;">⚙️ Mais Opções</h2>
-
-            <div class="patient-list">
-                <div class="patient-item" onclick="alert('Configurações do app')">
-                    <div style="font-size: 24px; margin-right: 15px;">⚙️</div>
-                    <div class="patient-info">
-                        <div class="patient-name">Configurações</div>
-                        <div class="patient-session">Personalize seu app</div>
-                    </div>
-                    <div class="patient-arrow">›</div>
-                </div>
-
-                <div class="patient-item" onclick="alert('Seus relatórios')">
-                    <div style="font-size: 24px; margin-right: 15px;">📊</div>
-                    <div class="patient-info">
-                        <div class="patient-name">Relatórios</div>
-                        <div class="patient-session">Análise de desempenho</div>
-                    </div>
-                    <div class="patient-arrow">›</div>
-                </div>
-
-                <div class="patient-item" onclick="alert('Backup de dados')">
-                    <div style="font-size: 24px; margin-right: 15px;">☁️</div>
-                    <div class="patient-info">
-                        <div class="patient-name">Backup de Dados</div>
-                        <div class="patient-session">Segurança e proteção</div>
-                    </div>
-                    <div class="patient-arrow">›</div>
-                </div>
-
-                <div class="patient-item" onclick="alert('Ajuda e suporte')">
-                    <div style="font-size: 24px; margin-right: 15px;">❓</div>
-                    <div class="patient-info">
-                        <div class="patient-name">Ajuda e Suporte</div>
-                        <div class="patient-session">Dúvidas e soluções</div>
-                    </div>
-                    <div class="patient-arrow">›</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-nav">
-        <div class="bottom-nav-item active" onclick="showTab('agenda')">
-            <div class="bottom-nav-icon">📅</div>
-            <div class="bottom-nav-label">Agenda</div>
-        </div>
-        <div class="bottom-nav-item" onclick="showTab('pacientes')">
-            <div class="bottom-nav-icon">👥</div>
-            <div class="bottom-nav-label">Pacientes</div>
-        </div>
-        <div class="bottom-nav-item" onclick="showTab('pagamentos')">
-            <div class="bottom-nav-icon">💰</div>
-            <div class="bottom-nav-label">Pagamentos</div>
-        </div>
-        <div class="bottom-nav-item" onclick="showTab('mais')">
-            <div class="bottom-nav-icon">⚙️</div>
-            <div class="bottom-nav-label">Mais</div>
-        </div>
-    </div>
-
-    <script>
-        function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            document.querySelectorAll('.nav-tab').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            document.querySelectorAll('.bottom-nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            document.getElementById(tabName).classList.add('active');
-
-            const navButtons = document.querySelectorAll('.nav-tab');
-            const tabNames = ['agenda', 'pacientes', 'pagamentos', 'mais'];
-            const index = tabNames.indexOf(tabName);
-            if (index !== -1 && navButtons[index]) {
-                navButtons[index].classList.add('active');
-            }
-
-            const bottomItems = document.querySelectorAll('.bottom-nav-item');
-            if (bottomItems[index]) {
-                bottomItems[index].classList.add('active');
-            }
-        }
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(err => {
-                console.log('Service Worker não registrado:', err);
-            });
-        }
-    </script>
+  </div>
 </body>
 </html>
+
