@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#FFB6C1">
+    <meta name="description" content="Pimpolhinhos - Gestão de Consultório de Psicologia Infantil">
     <title>Pimpolhinhos - Gestão de Consultório</title>
     <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🌱</text></svg>">
     <style>
         * {
             margin: 0;
@@ -13,20 +15,53 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #FFB6C1;
+            --secondary: #B0E0E6;
+            --tertiary: #E0BBE4;
+            --accent1: #98D8C8;
+            --accent2: #FFF9A6;
+            --background: #F8F9FA;
+            --text: #4A4A4A;
+            --border: #E0E0E0;
+            --success: #A8E6CF;
+            --error: #FFAAA5;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #FFB6C1 0%, #B0E0E6 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             min-height: 100vh;
             padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
-            max-width: 500px;
-            margin: 0 auto;
+            max-width: 600px;
+            width: 100%;
             background: white;
-            border-radius: 20px;
+            border-radius: 25px;
             padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .logo {
@@ -34,10 +69,16 @@
             margin-bottom: 30px;
         }
 
+        .logo-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
         .logo h1 {
-            color: #FFB6C1;
+            color: var(--primary);
             font-size: 32px;
             margin-bottom: 5px;
+            font-weight: 700;
         }
 
         .logo p {
@@ -45,19 +86,31 @@
             font-size: 14px;
         }
 
+        .progress-container {
+            margin-bottom: 25px;
+        }
+
         .progress-bar {
-            background: #f0f0f0;
-            height: 8px;
-            border-radius: 4px;
-            margin-bottom: 20px;
+            background: var(--border);
+            height: 10px;
+            border-radius: 5px;
             overflow: hidden;
+            margin-bottom: 10px;
         }
 
         .progress-fill {
-            background: linear-gradient(90deg, #FFB6C1, #E0BBE4);
+            background: linear-gradient(90deg, var(--primary), var(--tertiary));
             height: 100%;
-            width: 33%;
-            transition: width 0.3s ease;
+            width: 25%;
+            transition: width 0.4s ease;
+            border-radius: 5px;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text);
+            font-weight: 600;
         }
 
         .form-section {
@@ -66,21 +119,28 @@
 
         .form-section.active {
             display: block;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .section-title {
             font-size: 24px;
-            color: #4A4A4A;
-            margin-bottom: 20px;
+            color: var(--text);
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-weight: 700;
         }
 
         .form-group {
@@ -90,29 +150,41 @@
         label {
             display: block;
             font-weight: 600;
-            color: #4A4A4A;
+            color: var(--text);
             margin-bottom: 8px;
             font-size: 14px;
         }
 
+        .required {
+            color: var(--error);
+        }
+
         input, textarea, select {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #E0E0E0;
-            border-radius: 12px;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
             font-size: 15px;
-            transition: border-color 0.3s;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: white;
         }
 
         input:focus, textarea:focus, select:focus {
             outline: none;
-            border-color: #FFB6C1;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.1);
         }
 
         textarea {
             min-height: 100px;
             resize: vertical;
-            font-family: inherit;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
         .buttons {
@@ -123,38 +195,49 @@
 
         button {
             flex: 1;
-            padding: 14px;
+            padding: 16px;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-        }
-
-        .btn-back {
-            background: white;
-            border: 2px solid #FFB6C1;
-            color: #4A4A4A;
-        }
-
-        .btn-next {
-            background: linear-gradient(135deg, #FFB6C1, #E0BBE4);
-            color: white;
+            font-family: inherit;
         }
 
         button:active {
             transform: scale(0.98);
         }
 
+        .btn-back {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--text);
+        }
+
+        .btn-back:hover {
+            background: var(--background);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--primary), var(--tertiary));
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.3);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4);
+        }
+
         .success-message {
             display: none;
             text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
         }
 
         .success-message.show {
@@ -163,38 +246,98 @@
         }
 
         .success-icon {
-            font-size: 80px;
+            font-size: 100px;
             margin-bottom: 20px;
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .success-message h2 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(176, 224, 230, 0.1));
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <h1>🌱 Pimpolhinhos</h1>
-            <p>Formulário dos Pais</p>
+            <div class="logo-icon">🌱</div>
+            <h1>Pimpolhinhos</h1>
+            <p>Gestão de Consultório de Psicologia Infantil</p>
         </div>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressBar"></div>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">Etapa 1 de 4</div>
         </div>
 
-        <!-- SEÇÃO 1: IDENTIFICAÇÃO -->
+        <!-- SEÇÃO 1: IDENTIFICAÇÃO DOS PAIS -->
         <div class="form-section active" id="section1">
             <h2 class="section-title">👨‍👩‍👧 Identificação dos Responsáveis</h2>
 
-            <div class="form-group">
-                <label>Nome Completo da Mãe *</label>
-                <input type="text" id="nomeMae" required>
+            <div class="info-box">
+                ℹ️ Preencha os dados dos responsáveis pela criança
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nome Completo da Mãe <span class="required">*</span></label>
+                    <input type="text" id="nomeMae" required>
+                </div>
+                <div class="form-group">
+                    <label>Nome Completo do Pai</label>
+                    <input type="text" id="nomePai">
+                </div>
             </div>
 
             <div class="form-group">
-                <label>Nome Completo do Pai *</label>
-                <input type="text" id="nomePai" required>
-            </div>
-
-            <div class="form-group">
-                <label>Estado Civil / Configuração Familiar *</label>
+                <label>Estado Civil / Configuração Familiar <span class="required">*</span></label>
                 <select id="estadoCivil" required>
                     <option value="">Selecione...</option>
                     <option value="casados">Casados</option>
@@ -207,29 +350,31 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label>Telefone da Mãe *</label>
-                <input type="tel" id="telefoneMae" placeholder="(00) 00000-0000" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Telefone da Mãe <span class="required">*</span></label>
+                    <input type="tel" id="telefoneMae" placeholder="(00) 00000-0000" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefone do Pai</label>
+                    <input type="tel" id="telefonePai" placeholder="(00) 00000-0000">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>E-mail da Mãe <span class="required">*</span></label>
+                    <input type="email" id="emailMae" required>
+                </div>
+                <div class="form-group">
+                    <label>E-mail do Pai</label>
+                    <input type="email" id="emailPai">
+                </div>
             </div>
 
             <div class="form-group">
-                <label>Telefone do Pai</label>
-                <input type="tel" id="telefonePai" placeholder="(00) 00000-0000">
-            </div>
-
-            <div class="form-group">
-                <label>E-mail da Mãe *</label>
-                <input type="email" id="emailMae" required>
-            </div>
-
-            <div class="form-group">
-                <label>E-mail do Pai</label>
-                <input type="email" id="emailPai">
-            </div>
-
-            <div class="form-group">
-                <label>Endereço Completo *</label>
-                <textarea id="endereco" required></textarea>
+                <label>Endereço Completo <span class="required">*</span></label>
+                <textarea id="endereco" placeholder="Rua, número, bairro, cidade, estado" required></textarea>
             </div>
 
             <div class="buttons">
@@ -243,9 +388,13 @@
         <div class="form-section" id="section2">
             <h2 class="section-title">🏠 Dinâmica Familiar</h2>
 
+            <div class="info-box">
+                ℹ️ Informações sobre a estrutura e rotina familiar
+            </div>
+
             <div class="form-group">
-                <label>Com quem a criança mora? *</label>
-                <input type="text" id="moraComQuem" required>
+                <label>Com quem a criança mora? <span class="required">*</span></label>
+                <input type="text" id="moraComQuem" placeholder="Ex: Mãe e pai / Só com a mãe / Avós..." required>
             </div>
 
             <div class="form-group">
@@ -254,22 +403,23 @@
             </div>
 
             <div class="form-group">
-                <label>Rotina (quem busca na escola, horários) *</label>
-                <textarea id="rotina" required></textarea>
+                <label>Rotina (quem busca na escola, horários) <span class="required">*</span></label>
+                <textarea id="rotina" placeholder="Descreva a rotina diária da criança" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Relacionamento entre os pais</label>
+                <textarea id="relacionamentoPais" placeholder="Como é a relação? Há conflitos?"></textarea>
             </div>
 
             <div class="form-group">
                 <label>Histórico de saúde mental na família</label>
-                <textarea id="historicoFamiliar"></textarea>
+                <textarea id="historicoFamiliar" placeholder="Depressão, ansiedade, TDAH, autismo..."></textarea>
             </div>
 
             <div class="buttons">
-                <button class="btn-back" onclick="prevSection(1)">
-                    ← Voltar
-                </button>
-                <button class="btn-next" onclick="nextSection(3)">
-                    Próximo →
-                </button>
+                <button class="btn-back" onclick="prevSection(1)">← Voltar</button>
+                <button class="btn-next" onclick="nextSection(3)">Próximo →</button>
             </div>
         </div>
 
@@ -277,43 +427,115 @@
         <div class="form-section" id="section3">
             <h2 class="section-title">💭 Queixa Principal</h2>
 
-            <div class="form-group">
-                <label>O que motivou a busca pelo atendimento? *</label>
-                <textarea id="motivoBusca" required></textarea>
+            <div class="info-box">
+                ℹ️ Descreva o motivo da procura pelo atendimento
             </div>
 
             <div class="form-group">
-                <label>Quando começaram a perceber as dificuldades? *</label>
-                <textarea id="inicioProblema" required></textarea>
+                <label>O que motivou a busca pelo atendimento? <span class="required">*</span></label>
+                <textarea id="motivoBusca" placeholder="Descreva detalhadamente o que está acontecendo..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Quando começaram a perceber as dificuldades? <span class="required">*</span></label>
+                <textarea id="inicioProblema" placeholder="Há quanto tempo? Em que situação?" required></textarea>
             </div>
 
             <div class="form-group">
                 <label>O que já tentaram fazer?</label>
-                <textarea id="tentativasAnteriores"></textarea>
+                <textarea id="tentativasAnteriores" placeholder="Conversas, castigos, outros profissionais..."></textarea>
             </div>
 
             <div class="form-group">
-                <label>Expectativas com o tratamento *</label>
-                <textarea id="expectativas" required></textarea>
+                <label>Expectativas com o tratamento <span class="required">*</span></label>
+                <textarea id="expectativas" placeholder="O que esperam alcançar com a terapia?" required></textarea>
             </div>
 
             <div class="buttons">
-                <button class="btn-back" onclick="prevSection(2)">
-                    ← Voltar
-                </button>
-                <button class="btn-next" onclick="saveForm()">
-                    ✓ Salvar
-                </button>
+                <button class="btn-back" onclick="prevSection(2)">← Voltar</button>
+                <button class="btn-next" onclick="nextSection(4)">Próximo →</button>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 4: ANAMNESE DA CRIANÇA -->
+        <div class="form-section" id="section4">
+            <h2 class="section-title">👶 Anamnese da Criança</h2>
+
+            <div class="info-box">
+                ℹ️ Histórico de desenvolvimento e saúde da criança
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nome da Criança <span class="required">*</span></label>
+                    <input type="text" id="nomeCrianca" required>
+                </div>
+                <div class="form-group">
+                    <label>Data de Nascimento <span class="required">*</span></label>
+                    <input type="date" id="dataNascimento" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Sexo <span class="required">*</span></label>
+                    <select id="sexo" required>
+                        <option value="">Selecione...</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="feminino">Feminino</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Série/Ano Escolar</label>
+                    <input type="text" id="serieEscolar" placeholder="Ex: 3º ano">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Histórico Gestacional <span class="required">*</span></label>
+                <textarea id="historicoGestacional" placeholder="Gravidez planejada? Intercorrências? Parto normal ou cesárea?" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Desenvolvimento Neuropsicomotor <span class="required">*</span></label>
+                <textarea id="desenvolvimentoMotor" placeholder="Quando começou a sentar, andar, falar? Dentro do esperado?" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Histórico de Saúde <span class="required">*</span></label>
+                <textarea id="historicoSaude" placeholder="Doenças, cirurgias, alergias, medicações, diagnósticos prévios" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Sono e Alimentação</label>
+                <textarea id="sonoAlimentacao" placeholder="Qualidade do sono, dificuldades, apetite, seletividade alimentar"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Comportamento e Socialização <span class="required">*</span></label>
+                <textarea id="comportamentoSocial" placeholder="Como é na escola? Relacionamento com colegas? Medos? Birras?" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Rotina e Lazer</label>
+                <textarea id="rotinaLazer" placeholder="Atividades extracurriculares, tempo de tela, brincadeiras preferidas"></textarea>
+            </div>
+
+            <div class="buttons">
+                <button class="btn-back" onclick="prevSection(3)">← Voltar</button>
+                <button class="btn-next" onclick="saveForm()">✓ Salvar Formulário</button>
             </div>
         </div>
 
         <!-- MENSAGEM DE SUCESSO -->
         <div class="success-message" id="successMessage">
             <div class="success-icon">🎉</div>
-            <h2>Formulário Salvo!</h2>
-            <p style="margin: 20px 0; color: #666;">Os dados foram salvos com sucesso.</p>
-            <button class="btn-next" onclick="location.reload()">
-                Novo Formulário
+            <h2>Formulário Salvo com Sucesso!</h2>
+            <p>Os dados foram salvos e estão prontos para análise.</p>
+            <p style="font-size: 13px; color: #999;">Data: <span id="dataSalvamento"></span></p>
+            <button class="btn-next" onclick="novoFormulario()" style="margin-top: 20px;">
+                ➕ Novo Formulário
             </button>
         </div>
     </div>
@@ -322,26 +544,56 @@
         let currentSection = 1;
 
         function nextSection(section) {
-            document.getElementById(`section${currentSection}`).classList.remove('active');
-            document.getElementById(`section${section}`).classList.add('active');
+            if (!validarSecao(currentSection)) {
+                alert('⚠️ Por favor, preencha todos os campos obrigatórios!');
+                return;
+            }
+
+            document.getElementById('section' + currentSection).classList.remove('active');
+            document.getElementById('section' + section).classList.add('active');
             currentSection = section;
             updateProgress();
+            window.scrollTo(0, 0);
         }
 
         function prevSection(section) {
-            document.getElementById(`section${currentSection}`).classList.remove('active');
-            document.getElementById(`section${section}`).classList.add('active');
+            document.getElementById('section' + currentSection).classList.remove('active');
+            document.getElementById('section' + section).classList.add('active');
             currentSection = section;
             updateProgress();
+            window.scrollTo(0, 0);
         }
 
         function updateProgress() {
-            const progress = (currentSection / 3) * 100;
+            const progress = (currentSection / 4) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = 'Etapa ' + currentSection + ' de 4';
+        }
+
+        function validarSecao(secao) {
+            const campos = {
+                1: ['nomeMae', 'estadoCivil', 'telefoneMae', 'emailMae', 'endereco'],
+                2: ['moraComQuem', 'rotina'],
+                3: ['motivoBusca', 'inicioProblema', 'expectativas'],
+                4: ['nomeCrianca', 'dataNascimento', 'sexo', 'historicoGestacional', 'desenvolvimentoMotor', 'historicoSaude', 'comportamentoSocial']
+            };
+
+            for (let i = 0; i < campos[secao].length; i++) {
+                const campo = campos[secao][i];
+                const elemento = document.getElementById(campo);
+                if (!elemento.value.trim()) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         function saveForm() {
-            // Coletar todos os dados
+            if (!validarSecao(4)) {
+                alert('⚠️ Por favor, preencha todos os campos obrigatórios!');
+                return;
+            }
+
             const formData = {
                 nomeMae: document.getElementById('nomeMae').value,
                 nomePai: document.getElementById('nomePai').value,
@@ -354,26 +606,56 @@
                 moraComQuem: document.getElementById('moraComQuem').value,
                 irmaos: document.getElementById('irmaos').value,
                 rotina: document.getElementById('rotina').value,
+                relacionamentoPais: document.getElementById('relacionamentoPais').value,
                 historicoFamiliar: document.getElementById('historicoFamiliar').value,
                 motivoBusca: document.getElementById('motivoBusca').value,
                 inicioProblema: document.getElementById('inicioProblema').value,
                 tentativasAnteriores: document.getElementById('tentativasAnteriores').value,
                 expectativas: document.getElementById('expectativas').value,
-                dataPreenchimento: new Date().toISOString()
+                nomeCrianca: document.getElementById('nomeCrianca').value,
+                dataNascimento: document.getElementById('dataNascimento').value,
+                sexo: document.getElementById('sexo').value,
+                serieEscolar: document.getElementById('serieEscolar').value,
+                historicoGestacional: document.getElementById('historicoGestacional').value,
+                desenvolvimentoMotor: document.getElementById('desenvolvimentoMotor').value,
+                historicoSaude: document.getElementById('historicoSaude').value,
+                sonoAlimentacao: document.getElementById('sonoAlimentacao').value,
+                comportamentoSocial: document.getElementById('comportamentoSocial').value,
+                rotinaLazer: document.getElementById('rotinaLazer').value,
+                dataPreenchimento: new Date().toLocaleString('pt-BR'),
+                id: Date.now()
             };
 
-            // Salvar no LocalStorage (em produção, enviar para servidor)
-            localStorage.setItem('formularioPais_' + Date.now(), JSON.stringify(formData));
+            let formularios = JSON.parse(localStorage.getItem('formulariosPimpolhinhos')) || [];
+            formularios.push(formData);
+            localStorage.setItem('formulariosPimpolhinhos', JSON.stringify(formularios));
 
-            // Mostrar mensagem de sucesso
-            document.getElementById('section3').classList.remove('active');
+            document.getElementById('section4').classList.remove('active');
             document.getElementById('successMessage').classList.add('show');
+            document.getElementById('dataSalvamento').textContent = formData.dataPreenchimento;
+
+            console.log('Formulário salvo:', formData);
         }
 
-        // Instalar como PWA
+        function novoFormulario() {
+            const inputs = document.querySelectorAll('input, textarea, select');
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].value = '';
+            }
+
+            document.getElementById('successMessage').classList.remove('show');
+            document.getElementById('section1').classList.add('active');
+            currentSection = 1;
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js');
+            navigator.serviceWorker.register('/sw.js').catch(function(err) {
+                console.log('Service Worker não registrado:', err);
+            });
         }
     </script>
 </body>
 </html>
+
