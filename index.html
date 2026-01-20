@@ -1,873 +1,310 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pimpolhinhos - Gestão de Consultório</title>
-  <meta name="theme-color" content="#FFE9EC" />
-  <link rel="manifest" href="/manifest.json" />
-  <style>
-    :root {
-      --bg-page: #ffe9ec;
-      --card-bg: #fff9f5;
-      --card-bg-blue: #e6f3ff;
-      --card-bg-lilac: #f5ecff;
-      --card-bg-green: #e9f7f1;
-      --primary: #ff7f9f;
-      --primary-soft: #ffb6c1;
-      --accent-yellow: #ffe39b;
-      --accent-green: #8fd39a;
-      --accent-blue: #7db7ff;
-      --accent-lilac: #c9b4ff;
-      --text-main: #5b4b57;
-      --text-soft: #8b7a8a;
-      --border-soft: #f1d8dd;
-      --shadow-soft: 0 8px 18px rgba(181, 135, 135, 0.18);
-      --radius-card: 22px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pimpolhinhos - Agenda</title>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+<style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg-page);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 16px;
+        margin: 0;
+        background: #FDEEEE;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
     }
 
-    /* Layout mobile centralizado */
-    .phone-frame {
-      width: 390px;
-      max-width: 100%;
-      background: #fdf2f3;
-      border-radius: 36px;
-      padding: 14px;
-      box-shadow: 0 18px 40px rgba(157, 104, 104, 0.3);
-      border: 1px solid #f6d5dd;
-      position: relative;
-      overflow: hidden;
+    .phone {
+        width: 390px;
+        background: #FFFDFC;
+        border-radius: 28px;
+        padding: 22px;
+        box-shadow: 0 8px 28px rgba(0,0,0,0.1);
     }
 
-    /* “telas” empilhadas como no mockup */
-    .screens {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
+    /* HEADER */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .screen-column {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      flex: 1 1 160px;
-      min-width: 160px;
+    .logo-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
-    .screen {
-      background: #fffdf9;
-      border-radius: var(--radius-card);
-      padding: 16px 14px;
-      box-shadow: var(--shadow-soft);
-      width: 100%;
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 12px;
+        background: linear-gradient(135deg,#92E1C9,#C4F2E2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
     }
 
-    /* Cabeçalho PsiKids-like adaptado para Pimpolhinhos */
-    .header-brand {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
+    .logo-text {
+        font-size: 20px;
+        font-weight: 700;
+        color: #5F7CA8;
     }
 
-    .brand-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .profile {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #FFD39F;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
     }
 
-    .brand-logo {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #fff, #ffbfcf);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
+    /* GREETING */
+    .hello {
+        margin-top: 16px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #4D4D4D;
     }
 
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+    .sub {
+        font-size: 13px;
+        color: #666;
+        margin-top: 2px;
     }
 
-    .brand-title {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-      color: #ff7f9f;
+    /* CALENDAR */
+    .calendar {
+        display: flex;
+        gap: 6px;
+        margin-top: 14px;
     }
 
-    .brand-subtitle {
-      font-size: 11px;
-      color: var(--text-soft);
+    .day {
+        flex: 1;
+        background: #FFF;
+        text-align: center;
+        padding: 8px 0;
+        border-radius: 14px;
+        font-size: 11px;
+        color: #777;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
-    .profile-badge {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: #ffe39b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
+    .day strong {
+        display: block;
+        font-size: 14px;
+        color: #444;
     }
 
-    .greeting {
-      font-size: 14px;
-      margin-bottom: 4px;
+    .day.active {
+        background: linear-gradient(135deg,#FFD4D4,#FFF1F1);
+        color: #C75D5D;
+        font-weight: 700;
     }
 
-    .greeting span {
-      font-weight: 700;
+    .day.active strong {
+        color: #C75D5D;
     }
 
-    .sub-greeting {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 10px;
+    /* SCHEDULE CARDS */
+    .schedule-card {
+        background: #FFF;
+        border-radius: 20px;
+        padding: 14px;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.06);
     }
 
-    /* MINI CALENDÁRIO */
-    .mini-calendar {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 10px;
+    .hour-box {
+        background: #FFE3E7;
+        padding: 6px 10px;
+        border-radius: 14px;
+        text-align: center;
+        font-size: 11px;
+        color: #775656;
     }
 
-    .mini-day {
-      flex: 1;
-      text-align: center;
-      background: #fff;
-      border-radius: 12px;
-      padding: 6px 2px;
-      font-size: 10px;
-      color: var(--text-soft);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    .hour-box strong {
+        display: block;
+        font-size: 16px;
+        color: #444;
     }
 
-    .mini-day strong {
-      display: block;
-      font-size: 13px;
-      color: var(--text-main);
+    .avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: #FFD3A2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
     }
 
-    .mini-day span.badge {
-      display: inline-block;
-      margin-top: 4px;
-      padding: 2px 6px;
-      border-radius: 10px;
-      background: var(--accent-blue);
-      color: white;
-      font-size: 9px;
+    .info {
+        flex: 1;
     }
 
-    .mini-day.active {
-      background: linear-gradient(145deg,#ffb6c1,#ffdfd6);
-      color: white;
+    .name {
+        font-size: 15px;
+        font-weight: 700;
+        color: #444;
+        margin-bottom: 2px;
     }
 
-    .mini-day.active strong {
-      color: white;
+    .type {
+        font-size: 12px;
+        color: #777;
     }
 
-    /* LISTA DE HORÁRIOS */
-    .schedule-item {
-      display: flex;
-      align-items: center;
-      background: white;
-      border-radius: 18px;
-      padding: 10px 10px;
-      margin-bottom: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      gap: 8px;
+    .status {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
     }
 
-    .schedule-time-block {
-      background: #ffe7ec;
-      border-radius: 14px;
-      padding: 6px 8px;
-      text-align: center;
-      min-width: 62px;
-      font-size: 11px;
-      color: var(--text-main);
-    }
+    .confirmado { background: #DFF5E4; color: #2E7A3D; }
+    .pendente { background: #FFECC2; color: #8A6D1F; }
 
-    .schedule-time-block strong {
-      font-size: 14px;
-      display: block;
-    }
-
-    .schedule-avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: #ffd3a7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    .schedule-info {
-      flex: 1;
-    }
-
-    .schedule-name {
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .schedule-type {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .schedule-status {
-      font-size: 10px;
-      padding: 4px 8px;
-      border-radius: 20px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .status-confirmado {
-      background: #e3f6e9;
-      color: #2b7b3a;
-    }
-
-    .status-pendente {
-      background: #fff3cd;
-      color: #8a6d3b;
-    }
-
-    /* MENU INFERIOR */
+    /* BOTTOM MENU */
     .bottom-menu {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 8px;
-      padding: 6px 10px 0;
-      border-top: 1px solid #f5dadd;
+        margin-top: 22px;
+        border-top: 1px solid #F0D5D5;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 10px;
     }
 
-    .bottom-item {
-      flex: 1;
-      text-align: center;
-      font-size: 11px;
-      color: var(--text-soft);
+    .menu-item {
+        text-align: center;
+        color: #999;
+        font-size: 11px;
     }
 
-    .bottom-icon {
-      font-size: 16px;
-      display: block;
-      margin-bottom: 2px;
+    .menu-item span {
+        display: block;
+        font-size: 18px;
+        margin-bottom: 2px;
     }
 
-    .bottom-item.active {
-      color: #ff7f9f;
-      font-weight: 600;
+    .menu-item.active {
+        color: #E98686;
+        font-weight: 700;
     }
-
-    /* COLUNA PACIENTES */
-    .column-title {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .badge-add {
-      font-size: 10px;
-      background: #7db7ff;
-      color: white;
-      padding: 4px 8px;
-      border-radius: 999px;
-      margin-left: 6px;
-    }
-
-    .patient-list {
-      border-radius: 18px;
-      padding: 10px 8px;
-      background: #f4edf9;
-    }
-
-    .patient-row {
-      display: flex;
-      align-items: center;
-      padding: 8px 6px;
-      background: white;
-      border-radius: 14px;
-      margin-bottom: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    }
-
-    .patient-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      margin-right: 8px;
-      background: #ffd3a7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 19px;
-    }
-
-    .patient-info {
-      flex: 1;
-    }
-
-    .patient-name {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .patient-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .patient-arrow {
-      font-size: 16px;
-      color: var(--text-soft);
-    }
-
-    /* PAGAMENTOS */
-    .payments-card {
-      background: #fffcee;
-      border-radius: var(--radius-card);
-      padding: 14px 12px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .payments-header {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .payments-total {
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    .payments-total span {
-      font-weight: 700;
-    }
-
-    .pill-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .pill {
-      flex: 1;
-      padding: 5px 0;
-      text-align: center;
-      font-size: 11px;
-      border-radius: 999px;
-      border: 1px solid #ffd4cf;
-      background: white;
-      color: var(--text-soft);
-    }
-
-    .pill.active {
-      background: #ff7f9f;
-      border-color: #ff7f9f;
-      color: white;
-      font-weight: 600;
-    }
-
-    .payment-row {
-      display: flex;
-      align-items: center;
-      background: white;
-      border-radius: 14px;
-      padding: 8px 8px;
-      margin-bottom: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    }
-
-    .payment-info {
-      flex: 1;
-      font-size: 12px;
-    }
-
-    .payment-name {
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .payment-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .payment-right {
-      text-align: right;
-      font-size: 11px;
-    }
-
-    .payment-value {
-      font-weight: 700;
-      color: #ff7f9f;
-      margin-bottom: 2px;
-    }
-
-    .payment-badge {
-      display: inline-block;
-      padding: 3px 6px;
-      border-radius: 999px;
-      background: #ffe8c2;
-      color: #8a5a1a;
-    }
-
-    .btn-full {
-      margin-top: 12px;
-      width: 100%;
-      border: none;
-      border-radius: 16px;
-      padding: 10px 0;
-      background: #7db7ff;
-      color: white;
-      font-weight: 700;
-      font-size: 13px;
-      box-shadow: 0 4px 10px rgba(125,183,255,0.5);
-      cursor: pointer;
-    }
-
-    /* DETALHES DA SESSÃO */
-    .session-card {
-      background: #e6f3ff;
-      border-radius: var(--radius-card);
-      padding: 16px 14px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .session-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 13px;
-    }
-
-    .session-title {
-      font-weight: 700;
-    }
-
-    .session-field {
-      background: white;
-      border-radius: 14px;
-      padding: 8px 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-      font-size: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    }
-
-    .session-icon {
-      font-size: 16px;
-    }
-
-    .session-label {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .session-value {
-      font-weight: 600;
-    }
-
-    .session-value-badge {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: #e3f6e9;
-      color: #2b7b3a;
-      font-size: 11px;
-      font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .btn-session {
-      margin-top: 10px;
-      width: 100%;
-      padding: 10px 0;
-      border-radius: 16px;
-      border: none;
-      background: #ff7f9f;
-      color: white;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(255,127,159,0.55);
-    }
-
-    /* CONFIRMAÇÃO COM URSINHO */
-    .confirm-card {
-      background: #fffdf5;
-      border-radius: var(--radius-card);
-      padding: 16px 14px;
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .confirm-header {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .confirm-illustration {
-      text-align: center;
-      font-size: 52px;
-      margin-bottom: 10px;
-    }
-
-    .confirm-title {
-      font-size: 16px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 6px;
-      color: var(--text-main);
-    }
-
-    .confirm-patient {
-      text-align: center;
-      font-size: 13px;
-      margin-bottom: 6px;
-    }
-
-    .confirm-text {
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 12px;
-    }
-
-    .btn-ok {
-      display: block;
-      margin: 0 auto;
-      padding: 8px 26px;
-      border-radius: 16px;
-      border: none;
-      background: #7db7ff;
-      color: white;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    /* RESPONSIVO */
-    @media (max-width: 600px) {
-      .phone-frame {
-        width: 100%;
-        border-radius: 0;
-        box-shadow: none;
-        border: none;
-      }
-      .screens {
-        flex-direction: column;
-      }
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="phone-frame">
-    <div class="screens">
-      <!-- COLUNA 1: AGENDA -->
-      <div class="screen-column">
-        <div class="screen">
-          <div class="header-brand">
-            <div class="brand-left">
-              <div class="brand-logo">🌱</div>
-              <div class="brand-text">
-                <div class="brand-title">Pimpolhinhos</div>
-                <div class="brand-subtitle">Psicologia Infantil</div>
-              </div>
-            </div>
-            <div class="profile-badge">👩‍⚕️</div>
-          </div>
+<div class="phone">
 
-          <div class="greeting">Olá, <span>Dra. Ana</span></div>
-          <div class="sub-greeting">Seu dia de hoje:</div>
-
-          <div class="mini-calendar">
-            <div class="mini-day">
-              SEG
-              <strong>12</strong>
-            </div>
-            <div class="mini-day">
-              TER
-              <strong>13</strong>
-            </div>
-            <div class="mini-day active">
-              QUA
-              <strong>14</strong>
-              <span class="badge">HOJE</span>
-            </div>
-            <div class="mini-day">
-              QUI
-              <strong>15</strong>
-            </div>
-            <div class="mini-day">
-              SEX
-              <strong>16</strong>
-            </div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time-block">
-              <span>Horário</span>
-              <strong>10:00</strong>
-            </div>
-            <div class="schedule-avatar">👧</div>
-            <div class="schedule-info">
-              <div class="schedule-name">Sofia Andrade</div>
-              <div class="schedule-type">Sessão Infantil</div>
-            </div>
-            <div class="schedule-status status-confirmado">Confirmado</div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time-block">
-              <span>Horário</span>
-              <strong>11:30</strong>
-            </div>
-            <div class="schedule-avatar">👦</div>
-            <div class="schedule-info">
-              <div class="schedule-name">Lucas Melo</div>
-              <div class="schedule-type">Terapia Adolescente</div>
-            </div>
-            <div class="schedule-status status-confirmado">Confirmado</div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time-block">
-              <span>Horário</span>
-              <strong>14:00</strong>
-            </div>
-            <div class="schedule-avatar">👧</div>
-            <div class="schedule-info">
-              <div class="schedule-name">Laura Lima</div>
-              <div class="schedule-type">Sessão Adulto</div>
-            </div>
-            <div class="schedule-status status-pendente">Pendente</div>
-          </div>
-
-          <div class="bottom-menu">
-            <div class="bottom-item active">
-              <span class="bottom-icon">📅</span>
-              Agenda
-            </div>
-            <div class="bottom-item">
-              <span class="bottom-icon">👥</span>
-              Pacientes
-            </div>
-            <div class="bottom-item">
-              <span class="bottom-icon">💰</span>
-              Pagamentos
-            </div>
-            <div class="bottom-item">
-              <span class="bottom-icon">⋯</span>
-              Mais
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COLUNA 2: PACIENTES + PAGAMENTOS RESUMO -->
-      <div class="screen-column">
-        <div class="screen">
-          <div class="column-title">
-            Pacientes
-            <span class="badge-add">Adicionar +</span>
-          </div>
-          <div class="patient-list">
-            <div class="patient-row">
-              <div class="patient-avatar">👧</div>
-              <div class="patient-info">
-                <div class="patient-name">Sofia Andrade</div>
-                <div class="patient-sub">Sessão Infantil</div>
-              </div>
-              <div class="patient-arrow">›</div>
-            </div>
-            <div class="patient-row">
-              <div class="patient-avatar">👦</div>
-              <div class="patient-info">
-                <div class="patient-name">Lucas Melo</div>
-                <div class="patient-sub">Terapia Adolescente</div>
-              </div>
-              <div class="patient-arrow">›</div>
-            </div>
-            <div class="patient-row">
-              <div class="patient-avatar">👧</div>
-              <div class="patient-info">
-                <div class="patient-name">Laura Lima</div>
-                <div class="patient-sub">Sessão Adulto</div>
-              </div>
-              <div class="patient-arrow">›</div>
-            </div>
-            <div class="patient-row">
-              <div class="patient-avatar">👦</div>
-              <div class="patient-info">
-                <div class="patient-name">Pedro Silva</div>
-                <div class="patient-sub">Terapia Infantil</div>
-              </div>
-              <div class="patient-arrow">›</div>
-            </div>
-          </div>
-
-          <div class="bottom-menu">
-            <div class="bottom-item">
-              <span class="bottom-icon">📅</span>
-              Agenda
-            </div>
-            <div class="bottom-item active">
-              <span class="bottom-icon">👥</span>
-              Pacientes
-            </div>
-            <div class="bottom-item">
-              <span class="bottom-icon">💰</span>
-              Pagamentos
-            </div>
-            <div class="bottom-item">
-              <span class="bottom-icon">⋯</span>
-              Mais
-            </div>
-          </div>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo-wrapper">
+            <div class="logo-icon">🌱</div>
+            <div class="logo-text">Pimpolhinhos</div>
         </div>
 
-        <div class="payments-card">
-          <div class="payments-header">Pagamentos</div>
-          <div class="payments-total">
-            Saldo a Receber: <span>R$ 1.250,00</span>
-          </div>
-          <div class="pill-tabs">
-            <div class="pill active">Pendentes</div>
-            <div class="pill">Recebidos</div>
-          </div>
-
-          <div class="payment-row">
-            <div class="patient-avatar">👧</div>
-            <div class="payment-info">
-              <div class="payment-name">Laura Lima</div>
-              <div class="payment-sub">Sessão Adulto</div>
-            </div>
-            <div class="payment-right">
-              <div class="payment-value">R$ 200,00</div>
-              <span class="payment-badge">Em Aberto</span>
-            </div>
-          </div>
-
-          <div class="payment-row">
-            <div class="patient-avatar">👦</div>
-            <div class="payment-info">
-              <div class="payment-name">Pedro Silva</div>
-              <div class="payment-sub">Terapia Infantil</div>
-            </div>
-            <div class="payment-right">
-              <div class="payment-value">R$ 150,00</div>
-              <span class="payment-badge">Em Aberto</span>
-            </div>
-          </div>
-
-          <button class="btn-full">Enviar Nota Fiscal</button>
-        </div>
-      </div>
-
-      <!-- COLUNA 3: DETALHES + CONFIRMAÇÃO -->
-      <div class="screen-column">
-        <div class="session-card">
-          <div class="session-header">
-            <div class="session-title">Detalhes da Sessão</div>
-            <div style="font-size: 12px; color: var(--text-soft);">💬</div>
-          </div>
-
-          <div style="text-align: center; margin-bottom: 8px;">
-            <div style="font-weight:700; font-size:16px;">Lucas Melo</div>
-            <div style="font-size:12px; color:var(--text-soft);">Terapia Adolescente</div>
-          </div>
-
-          <div class="session-field">
-            <div class="session-icon">🕒</div>
-            <div>
-              <div class="session-label">Horário</div>
-              <div class="session-value">11:30</div>
-            </div>
-          </div>
-
-          <div class="session-field">
-            <div class="session-icon">📅</div>
-            <div>
-              <div class="session-label">Data</div>
-              <div class="session-value">14/07/2021</div>
-            </div>
-          </div>
-
-          <div class="session-field">
-            <div class="session-icon">📊</div>
-            <div>
-              <div class="session-label">Status</div>
-              <div class="session-value-badge">Confirmado</div>
-            </div>
-          </div>
-
-          <div class="session-field">
-            <div class="session-icon">💳</div>
-            <div>
-              <div class="session-label">Valor</div>
-              <div class="session-value">R$ 180,00</div>
-            </div>
-          </div>
-
-          <button class="btn-session">Enviar Nota Fiscal</button>
-        </div>
-
-        <div class="confirm-card">
-          <div class="confirm-header">Confirmação</div>
-          <div class="confirm-illustration">🧸</div>
-          <div class="confirm-title">Consulta Confirmada!</div>
-          <div class="confirm-patient">
-            Sofia Andrade<br />
-            <span style="font-size:12px; color:var(--text-soft);">
-              Sessão Infantil
-            </span>
-          </div>
-          <div class="confirm-text">
-            Agendada para: <strong>Hoje às 10:00</strong><br />
-            Notificação enviada com sucesso!
-          </div>
-          <button class="btn-ok">OK</button>
-        </div>
-      </div>
+        <div class="profile">👩‍⚕️</div>
     </div>
-  </div>
+
+    <!-- GREETING -->
+    <div class="hello">Olá, Dra. Ana</div>
+    <div class="sub">Seu dia de hoje:</div>
+
+    <!-- CALENDAR -->
+    <div class="calendar">
+        <div class="day">SEG <strong>12</strong></div>
+        <div class="day">TER <strong>13</strong></div>
+        <div class="day active">QUA <strong>14</strong></div>
+        <div class="day">QUI <strong>15</strong></div>
+        <div class="day">SEX <strong>16</strong></div>
+    </div>
+
+    <!-- CARD 1 -->
+    <div class="schedule-card">
+        <div class="hour-box">
+            Horário
+            <strong>10:00</strong>
+        </div>
+
+        <div class="avatar">👧</div>
+
+        <div class="info">
+            <div class="name">Sofia Andrade</div>
+            <div class="type">Sessão Infantil</div>
+        </div>
+
+        <div class="status confirmado">Confirmado</div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="schedule-card">
+        <div class="hour-box">
+            Horário
+            <strong>11:30</strong>
+        </div>
+
+        <div class="avatar">👦</div>
+
+        <div class="info">
+            <div class="name">Lucas Melo</div>
+            <div class="type">Terapia Adolescente</div>
+        </div>
+
+        <div class="status confirmado">Confirmado</div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="schedule-card">
+        <div class="hour-box">
+            Horário
+            <strong>14:00</strong>
+        </div>
+
+        <div class="avatar">👧</div>
+
+        <div class="info">
+            <div class="name">Laura Lima</div>
+            <div class="type">Sessão Adulto</div>
+        </div>
+
+        <div class="status pendente">Pendente</div>
+    </div>
+
+    <!-- BOTTOM MENU -->
+    <div class="bottom-menu">
+        <div class="menu-item active">
+            <span>📅</span>
+            Agenda
+        </div>
+
+        <div class="menu-item">
+            <span>👥</span>
+            Pacientes
+        </div>
+
+        <div class="menu-item">
+            <span>💰</span>
+            Pagamentos
+        </div>
+
+        <div class="menu-item">
+            <span>⋯</span>
+            Mais
+        </div>
+    </div>
+
+</div>
 </body>
 </html>
-
