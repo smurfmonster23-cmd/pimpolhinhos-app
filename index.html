@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#FFB6C1">
-    <meta name="description" content="Pimpolhinhos - Gestão de Consultório de Psicologia Infantil">
     <title>Pimpolhinhos - Gestão de Consultório</title>
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🌱</text></svg>">
     <style>
         * {
             margin: 0;
@@ -16,646 +14,792 @@
         }
 
         :root {
-            --primary: #FFB6C1;
-            --secondary: #B0E0E6;
-            --tertiary: #E0BBE4;
-            --accent1: #98D8C8;
-            --accent2: #FFF9A6;
-            --background: #F8F9FA;
-            --text: #4A4A4A;
-            --border: #E0E0E0;
-            --success: #A8E6CF;
-            --error: #FFAAA5;
-        }
-
-        html, body {
-            height: 100%;
-            width: 100%;
+            --rosa: #FFB6C1;
+            --azul: #B0E0E6;
+            --verde: #98D8C8;
+            --lilas: #E0BBE4;
+            --amarelo: #FFF9A6;
+            --pessego: #FFDAB9;
+            --bg: #FFF5F7;
+            --texto: #4A4A4A;
+            --branco: #FFFFFF;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--texto);
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--rosa), var(--lilas));
             padding: 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-        }
-
-        .container {
-            max-width: 600px;
-            width: 100%;
-            background: white;
-            border-radius: 25px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo-icon {
-            font-size: 60px;
-            margin-bottom: 10px;
-        }
-
-        .logo h1 {
-            color: var(--primary);
-            font-size: 32px;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
-        .logo p {
-            color: #999;
-            font-size: 14px;
-        }
-
-        .progress-container {
-            margin-bottom: 25px;
-        }
-
-        .progress-bar {
-            background: var(--border);
-            height: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, var(--primary), var(--tertiary));
-            height: 100%;
-            width: 25%;
-            transition: width 0.4s ease;
-            border-radius: 5px;
-        }
-
-        .progress-text {
-            text-align: center;
-            font-size: 13px;
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        .form-section {
-            display: none;
-        }
-
-        .form-section.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-title {
-            font-size: 24px;
-            color: var(--text);
-            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 22px;
             font-weight: 700;
         }
 
-        .form-group {
+        .user-info {
+            text-align: right;
+            color: white;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .user-date {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* NAVIGATION TABS */
+        .nav-tabs {
+            display: flex;
+            background: white;
+            padding: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            border: none;
+            background: white;
+            color: var(--texto);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-tab.active {
+            color: var(--rosa);
+            border-bottom-color: var(--rosa);
+        }
+
+        .nav-tab:hover {
+            background: var(--bg);
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CARDS DE HORÁRIOS */
+        .schedule-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .schedule-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .schedule-time {
+            background: var(--rosa);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .schedule-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--azul), var(--verde));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .schedule-info {
+            flex: 1;
+        }
+
+        .schedule-name {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+
+        .schedule-type {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .schedule-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-confirmado {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .status-pendente {
+            background: #FFF3CD;
+            color: #856404;
+        }
+
+        /* LISTA DE PACIENTES */
+        .patient-list {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .patient-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--bg);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .patient-item:hover {
+            background: var(--bg);
+        }
+
+        .patient-item:last-child {
+            border-bottom: none;
+        }
+
+        .patient-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pessego), var(--amarelo));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-right: 15px;
+        }
+
+        .patient-info {
+            flex: 1;
+        }
+
+        .patient-name {
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .patient-session {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .patient-arrow {
+            color: var(--rosa);
+            font-size: 20px;
+        }
+
+        /* PAGAMENTOS */
+        .payment-summary {
+            background: linear-gradient(135deg, var(--verde), var(--azul));
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .payment-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .payment-value {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .payment-tabs {
+            display: flex;
+            gap: 10px;
             margin-bottom: 20px;
         }
 
-        label {
-            display: block;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .required {
-            color: var(--error);
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.1);
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 30px;
-        }
-
-        button {
+        .payment-tab {
             flex: 1;
-            padding: 16px;
-            border: none;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 12px;
+            background: white;
+            border: 2px solid var(--bg);
+            border-radius: 10px;
+            text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .payment-tab.active {
+            background: var(--rosa);
+            color: white;
+            border-color: var(--rosa);
+        }
+
+        .payment-item {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .payment-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--lilas), var(--rosa));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .payment-details {
+            flex: 1;
+        }
+
+        .payment-name {
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .payment-session-type {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .payment-amount {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--rosa);
+        }
+
+        .payment-status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--pessego);
+            color: #8B4513;
+        }
+
+        /* BOTÃO ENVIAR NOTA FISCAL */
+        .btn-nf {
+            background: linear-gradient(135deg, var(--azul), var(--verde));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            font-family: inherit;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(152, 216, 200, 0.3);
+            transition: transform 0.2s;
         }
 
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .btn-back {
-            background: white;
-            border: 2px solid var(--primary);
-            color: var(--text);
-        }
-
-        .btn-back:hover {
-            background: var(--background);
-        }
-
-        .btn-next {
-            background: linear-gradient(135deg, var(--primary), var(--tertiary));
-            color: white;
-            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.3);
-        }
-
-        .btn-next:hover {
+        .btn-nf:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4);
         }
 
-        .success-message {
-            display: none;
+        /* DETALHES DA SESSÃO */
+        .session-details {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .session-header {
             text-align: center;
-            padding: 40px 20px;
-        }
-
-        .success-message.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .success-icon {
-            font-size: 100px;
-            margin-bottom: 20px;
-            animation: bounce 0.6s ease;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .success-message h2 {
-            color: var(--primary);
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        .success-message p {
-            color: #666;
             margin-bottom: 25px;
-            line-height: 1.6;
         }
 
-        .info-box {
-            background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(176, 224, 230, 0.1));
-            border-left: 4px solid var(--primary);
+        .session-patient-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--rosa);
+            margin-bottom: 5px;
+        }
+
+        .session-type-label {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .session-info-row {
+            display: flex;
+            align-items: center;
             padding: 15px;
+            background: var(--bg);
             border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            color: var(--text);
+            margin-bottom: 12px;
+            gap: 12px;
         }
 
+        .session-icon {
+            font-size: 24px;
+        }
+
+        .session-info-label {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .session-info-value {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        /* CONFIRMAÇÃO */
+        .confirmation-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .confirmation-illustration {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--rosa);
+            margin-bottom: 15px;
+        }
+
+        .confirmation-patient {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .confirmation-session-type {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .confirmation-datetime {
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-note {
+            font-size: 13px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .btn-ok {
+            background: linear-gradient(135deg, var(--azul), var(--verde));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(152, 216, 200, 0.3);
+        }
+
+        /* BOTTOM NAV */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .bottom-nav-item {
+            text-align: center;
+            cursor: pointer;
+            padding: 5px;
+            transition: transform 0.2s;
+        }
+
+        .bottom-nav-item:active {
+            transform: scale(0.95);
+        }
+
+        .bottom-nav-icon {
+            font-size: 24px;
+            margin-bottom: 3px;
+        }
+
+        .bottom-nav-label {
+            font-size: 11px;
+            color: #999;
+        }
+
+        .bottom-nav-item.active .bottom-nav-icon {
+            color: var(--rosa);
+        }
+
+        .bottom-nav-item.active .bottom-nav-label {
+            color: var(--rosa);
+            font-weight: 600;
+        }
+
+        /* RESPONSIVO */
         @media (max-width: 600px) {
-            body {
-                padding: 10px;
+            .header {
+                padding: 15px;
             }
 
-            .container {
-                padding: 20px;
-                border-radius: 20px;
+            .logo-text {
+                font-size: 18px;
             }
 
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .buttons {
-                flex-direction: column;
-            }
-
-            button {
-                width: 100%;
+            .content {
+                padding: 15px;
+                padding-bottom: 80px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- HEADER -->
+    <div class="header">
         <div class="logo">
             <div class="logo-icon">🌱</div>
-            <h1>Pimpolhinhos</h1>
-            <p>Gestão de Consultório de Psicologia Infantil</p>
+            <div class="logo-text">Pimpolhinhos</div>
         </div>
-
-        <div class="progress-container">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressBar"></div>
-            </div>
-            <div class="progress-text" id="progressText">Etapa 1 de 4</div>
+        <div class="user-info">
+            <div class="user-name">Olá, Dra. Ana</div>
+            <div class="user-date">Seu dia de hoje:</div>
         </div>
+    </div>
 
-        <!-- SEÇÃO 1: IDENTIFICAÇÃO DOS PAIS -->
-        <div class="form-section active" id="section1">
-            <h2 class="section-title">👨‍👩‍👧 Identificação dos Responsáveis</h2>
+    <!-- NAVIGATION TABS -->
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('agenda')">Agenda</button>
+        <button class="nav-tab" onclick="showTab('pacientes')">Pacientes</button>
+        <button class="nav-tab" onclick="showTab('pagamentos')">Pagamentos</button>
+        <button class="nav-tab" onclick="showTab('mais')">Mais</button>
+    </div>
 
-            <div class="info-box">
-                ℹ️ Preencha os dados dos responsáveis pela criança
+    <!-- CONTENT -->
+    <div class="content">
+        <!-- ABA AGENDA -->
+        <div id="agenda" class="tab-content active">
+            <h2 style="margin-bottom: 20px; font-size: 20px;">📅 Agenda de Hoje</h2>
+
+            <div class="schedule-card" onclick="showSessionDetails('Sofia Andrade')">
+                <div class="schedule-time">10:00</div>
+                <div class="schedule-avatar">👧</div>
+                <div class="schedule-info">
+                    <div class="schedule-name">Sofia Andrade</div>
+                    <div class="schedule-type">Sessão Infantil</div>
+                </div>
+                <span class="schedule-status status-confirmado">Confirmado</span>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Nome Completo da Mãe <span class="required">*</span></label>
-                    <input type="text" id="nomeMae" required>
+            <div class="schedule-card" onclick="showSessionDetails('Lucas Melo')">
+                <div class="schedule-time">11:30</div>
+                <div class="schedule-avatar">👦</div>
+                <div class="schedule-info">
+                    <div class="schedule-name">Lucas Melo</div>
+                    <div class="schedule-type">Terapia Adolescente</div>
                 </div>
-                <div class="form-group">
-                    <label>Nome Completo do Pai</label>
-                    <input type="text" id="nomePai">
-                </div>
+                <span class="schedule-status status-confirmado">Confirmado</span>
             </div>
 
-            <div class="form-group">
-                <label>Estado Civil / Configuração Familiar <span class="required">*</span></label>
-                <select id="estadoCivil" required>
-                    <option value="">Selecione...</option>
-                    <option value="casados">Casados</option>
-                    <option value="uniao_estavel">União Estável</option>
-                    <option value="divorciados">Divorciados</option>
-                    <option value="separados">Separados</option>
-                    <option value="mae_solo">Mãe Solo</option>
-                    <option value="pai_solo">Pai Solo</option>
-                    <option value="outro">Outro</option>
-                </select>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Telefone da Mãe <span class="required">*</span></label>
-                    <input type="tel" id="telefoneMae" placeholder="(00) 00000-0000" required>
+            <div class="schedule-card" onclick="showSessionDetails('Laura Lima')">
+                <div class="schedule-time">14:00</div>
+                <div class="schedule-avatar">👧</div>
+                <div class="schedule-info">
+                    <div class="schedule-name">Laura Lima</div>
+                    <div class="schedule-type">Sessão Adulto</div>
                 </div>
-                <div class="form-group">
-                    <label>Telefone do Pai</label>
-                    <input type="tel" id="telefonePai" placeholder="(00) 00000-0000">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>E-mail da Mãe <span class="required">*</span></label>
-                    <input type="email" id="emailMae" required>
-                </div>
-                <div class="form-group">
-                    <label>E-mail do Pai</label>
-                    <input type="email" id="emailPai">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Endereço Completo <span class="required">*</span></label>
-                <textarea id="endereco" placeholder="Rua, número, bairro, cidade, estado" required></textarea>
-            </div>
-
-            <div class="buttons">
-                <button class="btn-next" onclick="nextSection(2)">
-                    Próximo →
-                </button>
+                <span class="schedule-status status-pendente">Pendente</span>
             </div>
         </div>
 
-        <!-- SEÇÃO 2: DINÂMICA FAMILIAR -->
-        <div class="form-section" id="section2">
-            <h2 class="section-title">🏠 Dinâmica Familiar</h2>
+        <!-- ABA PACIENTES -->
+        <div id="pacientes" class="tab-content">
+            <h2 style="margin-bottom: 20px; font-size: 20px;">👥 Meus Pacientes</h2>
 
-            <div class="info-box">
-                ℹ️ Informações sobre a estrutura e rotina familiar
-            </div>
+            <div class="patient-list">
+                <div class="patient-item" onclick="showPatientDetails('Sofia Andrade')">
+                    <div class="patient-avatar">👧</div>
+                    <div class="patient-info">
+                        <div class="patient-name">Sofia Andrade</div>
+                        <div class="patient-session">Sessão Infantil</div>
+                    </div>
+                    <div class="patient-arrow">›</div>
+                </div>
 
-            <div class="form-group">
-                <label>Com quem a criança mora? <span class="required">*</span></label>
-                <input type="text" id="moraComQuem" placeholder="Ex: Mãe e pai / Só com a mãe / Avós..." required>
-            </div>
+                <div class="patient-item" onclick="showPatientDetails('Lucas Melo')">
+                    <div class="patient-avatar">👦</div>
+                    <div class="patient-info">
+                        <div class="patient-name">Lucas Melo</div>
+                        <div class="patient-session">Terapia Adolescente</div>
+                    </div>
+                    <div class="patient-arrow">›</div>
+                </div>
 
-            <div class="form-group">
-                <label>Irmãos (nomes e idades)</label>
-                <textarea id="irmaos" placeholder="Ex: João, 8 anos / Maria, 3 anos"></textarea>
-            </div>
+                <div class="patient-item" onclick="showPatientDetails('Laura Lima')">
+                    <div class="patient-avatar">👧</div>
+                    <div class="patient-info">
+                        <div class="patient-name">Laura Lima</div>
+                        <div class="patient-session">Sessão Adulto</div>
+                    </div>
+                    <div class="patient-arrow">›</div>
+                </div>
 
-            <div class="form-group">
-                <label>Rotina (quem busca na escola, horários) <span class="required">*</span></label>
-                <textarea id="rotina" placeholder="Descreva a rotina diária da criança" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Relacionamento entre os pais</label>
-                <textarea id="relacionamentoPais" placeholder="Como é a relação? Há conflitos?"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Histórico de saúde mental na família</label>
-                <textarea id="historicoFamiliar" placeholder="Depressão, ansiedade, TDAH, autismo..."></textarea>
-            </div>
-
-            <div class="buttons">
-                <button class="btn-back" onclick="prevSection(1)">← Voltar</button>
-                <button class="btn-next" onclick="nextSection(3)">Próximo →</button>
+                <div class="patient-item" onclick="showPatientDetails('Pedro Silva')">
+                    <div class="patient-avatar">👦</div>
+                    <div class="patient-info">
+                        <div class="patient-name">Pedro Silva</div>
+                        <div class="patient-session">Terapia Infantil</div>
+                    </div>
+                    <div class="patient-arrow">›</div>
+                </div>
             </div>
         </div>
 
-        <!-- SEÇÃO 3: QUEIXA PRINCIPAL -->
-        <div class="form-section" id="section3">
-            <h2 class="section-title">💭 Queixa Principal</h2>
+        <!-- ABA PAGAMENTOS -->
+        <div id="pagamentos" class="tab-content">
+            <h2 style="margin-bottom: 20px; font-size: 20px;">💰 Pagamentos</h2>
 
-            <div class="info-box">
-                ℹ️ Descreva o motivo da procura pelo atendimento
+            <div class="payment-summary">
+                <div class="payment-label">Saldo a Receber</div>
+                <div class="payment-value">R$ 1.250,00</div>
             </div>
 
-            <div class="form-group">
-                <label>O que motivou a busca pelo atendimento? <span class="required">*</span></label>
-                <textarea id="motivoBusca" placeholder="Descreva detalhadamente o que está acontecendo..." required></textarea>
+            <div class="payment-tabs">
+                <div class="payment-tab active">Pendentes</div>
+                <div class="payment-tab">Recebidos</div>
             </div>
 
-            <div class="form-group">
-                <label>Quando começaram a perceber as dificuldades? <span class="required">*</span></label>
-                <textarea id="inicioProblema" placeholder="Há quanto tempo? Em que situação?" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>O que já tentaram fazer?</label>
-                <textarea id="tentativasAnteriores" placeholder="Conversas, castigos, outros profissionais..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Expectativas com o tratamento <span class="required">*</span></label>
-                <textarea id="expectativas" placeholder="O que esperam alcançar com a terapia?" required></textarea>
-            </div>
-
-            <div class="buttons">
-                <button class="btn-back" onclick="prevSection(2)">← Voltar</button>
-                <button class="btn-next" onclick="nextSection(4)">Próximo →</button>
-            </div>
-        </div>
-
-        <!-- SEÇÃO 4: ANAMNESE DA CRIANÇA -->
-        <div class="form-section" id="section4">
-            <h2 class="section-title">👶 Anamnese da Criança</h2>
-
-            <div class="info-box">
-                ℹ️ Histórico de desenvolvimento e saúde da criança
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Nome da Criança <span class="required">*</span></label>
-                    <input type="text" id="nomeCrianca" required>
+            <div class="payment-item">
+                <div class="payment-avatar">👧</div>
+                <div class="payment-details">
+                    <div class="payment-name">Laura Lima</div>
+                    <div class="payment-session-type">Sessão Adulto</div>
                 </div>
-                <div class="form-group">
-                    <label>Data de Nascimento <span class="required">*</span></label>
-                    <input type="date" id="dataNascimento" required>
+                <div>
+                    <div class="payment-amount">R$ 200,00</div>
+                    <div class="payment-status-badge">Pendente</div>
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Sexo <span class="required">*</span></label>
-                    <select id="sexo" required>
-                        <option value="">Selecione...</option>
-                        <option value="masculino">Masculino</option>
-                        <option value="feminino">Feminino</option>
-                        <option value="outro">Outro</option>
-                    </select>
+            <div class="payment-item">
+                <div class="payment-avatar">👦</div>
+                <div class="payment-details">
+                    <div class="payment-name">Pedro Silva</div>
+                    <div class="payment-session-type">Terapia Infantil</div>
                 </div>
-                <div class="form-group">
-                    <label>Série/Ano Escolar</label>
-                    <input type="text" id="serieEscolar" placeholder="Ex: 3º ano">
+                <div>
+                    <div class="payment-amount">R$ 150,00</div>
+                    <div class="payment-status-badge">Pendente</div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Histórico Gestacional <span class="required">*</span></label>
-                <textarea id="historicoGestacional" placeholder="Gravidez planejada? Intercorrências? Parto normal ou cesárea?" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Desenvolvimento Neuropsicomotor <span class="required">*</span></label>
-                <textarea id="desenvolvimentoMotor" placeholder="Quando começou a sentar, andar, falar? Dentro do esperado?" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Histórico de Saúde <span class="required">*</span></label>
-                <textarea id="historicoSaude" placeholder="Doenças, cirurgias, alergias, medicações, diagnósticos prévios" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Sono e Alimentação</label>
-                <textarea id="sonoAlimentacao" placeholder="Qualidade do sono, dificuldades, apetite, seletividade alimentar"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Comportamento e Socialização <span class="required">*</span></label>
-                <textarea id="comportamentoSocial" placeholder="Como é na escola? Relacionamento com colegas? Medos? Birras?" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Rotina e Lazer</label>
-                <textarea id="rotinaLazer" placeholder="Atividades extracurriculares, tempo de tela, brincadeiras preferidas"></textarea>
-            </div>
-
-            <div class="buttons">
-                <button class="btn-back" onclick="prevSection(3)">← Voltar</button>
-                <button class="btn-next" onclick="saveForm()">✓ Salvar Formulário</button>
-            </div>
-        </div>
-
-        <!-- MENSAGEM DE SUCESSO -->
-        <div class="success-message" id="successMessage">
-            <div class="success-icon">🎉</div>
-            <h2>Formulário Salvo com Sucesso!</h2>
-            <p>Os dados foram salvos e estão prontos para análise.</p>
-            <p style="font-size: 13px; color: #999;">Data: <span id="dataSalvamento"></span></p>
-            <button class="btn-next" onclick="novoFormulario()" style="margin-top: 20px;">
-                ➕ Novo Formulário
+            <button class="btn-nf" onclick="enviarNotaFiscal()">
+                📧 Enviar Nota Fiscal
             </button>
+        </div>
+
+        <!-- ABA MAIS -->
+        <div id="mais" class="tab-content">
+            <h2 style="margin-bottom: 20px; font-size: 20px;">⚙️ Mais Opções</h2>
+
+            <div class="session-details">
+                <div class="session-info-row" onclick="alert('Configurações')">
+                    <div class="session-icon">⚙️</div>
+                    <div style="flex: 1;">
+                        <div class="session-info-value">Configurações</div>
+                    </div>
+                    <div class="patient-arrow">›</div>
+                </div>
+
+                <div class="session-info-row" onclick="alert('Relatórios')">
+                    <div class="session-icon">📊</div>
+                    <div style="flex: 1;">
+                        <div class="session-info-value">Relatórios</div>
+                    </div>
+                    <div class="patient-arrow">›</div>
+                </div>
+
+                <div class="session-info-row" onclick="alert('Backup')">
+                    <div class="session-icon">☁️</div>
+                    <div style="flex: 1;">
+                        <div class="session-info-value">Backup de Dados</div>
+                    </div>
+                    <div class="patient-arrow">›</div>
+                </div>
+
+                <div class="session-info-row" onclick="alert('Ajuda')">
+                    <div class="session-icon">❓</div>
+                    <div style="flex: 1;">
+                        <div class="session-info-value">Ajuda e Suporte</div>
+                    </div>
+                    <div class="patient-arrow">›</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="bottom-nav">
+        <div class="bottom-nav-item active" onclick="showTab('agenda')">
+            <div class="bottom-nav-icon">📅</div>
+            <div class="bottom-nav-label">Agenda</div>
+        </div>
+        <div class="bottom-nav-item" onclick="showTab('pacientes')">
+            <div class="bottom-nav-icon">👥</div>
+            <div class="bottom-nav-label">Pacientes</div>
+        </div>
+        <div class="bottom-nav-item" onclick="showTab('pagamentos')">
+            <div class="bottom-nav-icon">💰</div>
+            <div class="bottom-nav-label">Pagamentos</div>
+        </div>
+        <div class="bottom-nav-item" onclick="showTab('mais')">
+            <div class="bottom-nav-icon">⚙️</div>
+            <div class="bottom-nav-label">Mais</div>
         </div>
     </div>
 
     <script>
-        let currentSection = 1;
+        function showTab(tabName) {
+            // Esconder todas as abas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
 
-        function nextSection(section) {
-            if (!validarSecao(currentSection)) {
-                alert('⚠️ Por favor, preencha todos os campos obrigatórios!');
-                return;
+            // Remover active dos botões
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.querySelectorAll('.bottom-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Mostrar aba selecionada
+            document.getElementById(tabName).classList.add('active');
+
+            // Ativar botão correspondente
+            const navButtons = document.querySelectorAll('.nav-tab');
+            const tabNames = ['agenda', 'pacientes', 'pagamentos', 'mais'];
+            const index = tabNames.indexOf(tabName);
+            if (index !== -1 && navButtons[index]) {
+                navButtons[index].classList.add('active');
             }
 
-            document.getElementById('section' + currentSection).classList.remove('active');
-            document.getElementById('section' + section).classList.add('active');
-            currentSection = section;
-            updateProgress();
-            window.scrollTo(0, 0);
-        }
-
-        function prevSection(section) {
-            document.getElementById('section' + currentSection).classList.remove('active');
-            document.getElementById('section' + section).classList.add('active');
-            currentSection = section;
-            updateProgress();
-            window.scrollTo(0, 0);
-        }
-
-        function updateProgress() {
-            const progress = (currentSection / 4) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-            document.getElementById('progressText').textContent = 'Etapa ' + currentSection + ' de 4';
-        }
-
-        function validarSecao(secao) {
-            const campos = {
-                1: ['nomeMae', 'estadoCivil', 'telefoneMae', 'emailMae', 'endereco'],
-                2: ['moraComQuem', 'rotina'],
-                3: ['motivoBusca', 'inicioProblema', 'expectativas'],
-                4: ['nomeCrianca', 'dataNascimento', 'sexo', 'historicoGestacional', 'desenvolvimentoMotor', 'historicoSaude', 'comportamentoSocial']
-            };
-
-            for (let i = 0; i < campos[secao].length; i++) {
-                const campo = campos[secao][i];
-                const elemento = document.getElementById(campo);
-                if (!elemento.value.trim()) {
-                    return false;
-                }
+            // Ativar bottom nav
+            const bottomItems = document.querySelectorAll('.bottom-nav-item');
+            if (bottomItems[index]) {
+                bottomItems[index].classList.add('active');
             }
-            return true;
         }
 
-        function saveForm() {
-            if (!validarSecao(4)) {
-                alert('⚠️ Por favor, preencha todos os campos obrigatórios!');
-                return;
+        function showSessionDetails(patientName) {
+            alert('Detalhes da sessão de ' + patientName + '\n\nHorário: 10:00\nData: 14/07/2021\nStatus: Confirmado\nValor: R$ 180,00');
+        }
+
+        function showPatientDetails(patientName) {
+            alert('Detalhes do paciente: ' + patientName + '\n\nPróxima consulta: Hoje às 10:00\nHistórico: 12 sessões realizadas\nÚltimo atendimento: 07/07/2021');
+        }
+
+        function enviarNotaFiscal() {
+            if (confirm('Deseja enviar a nota fiscal para todos os pacientes pendentes?')) {
+                alert('✅ Notas fiscais enviadas com sucesso!');
             }
-
-            const formData = {
-                nomeMae: document.getElementById('nomeMae').value,
-                nomePai: document.getElementById('nomePai').value,
-                estadoCivil: document.getElementById('estadoCivil').value,
-                telefoneMae: document.getElementById('telefoneMae').value,
-                telefonePai: document.getElementById('telefonePai').value,
-                emailMae: document.getElementById('emailMae').value,
-                emailPai: document.getElementById('emailPai').value,
-                endereco: document.getElementById('endereco').value,
-                moraComQuem: document.getElementById('moraComQuem').value,
-                irmaos: document.getElementById('irmaos').value,
-                rotina: document.getElementById('rotina').value,
-                relacionamentoPais: document.getElementById('relacionamentoPais').value,
-                historicoFamiliar: document.getElementById('historicoFamiliar').value,
-                motivoBusca: document.getElementById('motivoBusca').value,
-                inicioProblema: document.getElementById('inicioProblema').value,
-                tentativasAnteriores: document.getElementById('tentativasAnteriores').value,
-                expectativas: document.getElementById('expectativas').value,
-                nomeCrianca: document.getElementById('nomeCrianca').value,
-                dataNascimento: document.getElementById('dataNascimento').value,
-                sexo: document.getElementById('sexo').value,
-                serieEscolar: document.getElementById('serieEscolar').value,
-                historicoGestacional: document.getElementById('historicoGestacional').value,
-                desenvolvimentoMotor: document.getElementById('desenvolvimentoMotor').value,
-                historicoSaude: document.getElementById('historicoSaude').value,
-                sonoAlimentacao: document.getElementById('sonoAlimentacao').value,
-                comportamentoSocial: document.getElementById('comportamentoSocial').value,
-                rotinaLazer: document.getElementById('rotinaLazer').value,
-                dataPreenchimento: new Date().toLocaleString('pt-BR'),
-                id: Date.now()
-            };
-
-            let formularios = JSON.parse(localStorage.getItem('formulariosPimpolhinhos')) || [];
-            formularios.push(formData);
-            localStorage.setItem('formulariosPimpolhinhos', JSON.stringify(formularios));
-
-            document.getElementById('section4').classList.remove('active');
-            document.getElementById('successMessage').classList.add('show');
-            document.getElementById('dataSalvamento').textContent = formData.dataPreenchimento;
-
-            console.log('Formulário salvo:', formData);
         }
 
-        function novoFormulario() {
-            const inputs = document.querySelectorAll('input, textarea, select');
-            for (let i = 0; i < inputs.length; i++) {
-                inputs[i].value = '';
-            }
-
-            document.getElementById('successMessage').classList.remove('show');
-            document.getElementById('section1').classList.add('active');
-            currentSection = 1;
-            updateProgress();
-            window.scrollTo(0, 0);
-        }
-
+        // Registrar Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(function(err) {
+            navigator.serviceWorker.register('/sw.js').catch(err => {
                 console.log('Service Worker não registrado:', err);
             });
         }
     </script>
 </body>
 </html>
+
 
